@@ -1,8 +1,14 @@
 <template>
   <div class="card">
-    <h1>Question {{question + 1}}</h1>
-    <p>{{  questions[question].text }}</p>
-    <button @click="question++">Next</button> 
+    <h1>Question {{questionIndex + 1}}</h1>
+    <p>{{  questions[questionIndex].text }}</p>
+    <div v-for="(option, index) in questions[questionIndex].answers" v-bind:key=index>
+      <label>
+        <input type="radio" :value="option" v-model="selectedAnswer"/>
+        {{ option }}
+      </label>
+    </div>
+    <button @click="nextQuestion" :disabled="selectedAnswer === null">Next</button>
   </div>
 </template>
 
@@ -16,11 +22,17 @@ export default {
   },
   data() {
     return {
-      question : 0
+      questionIndex : 0,            // Position of in questions list.
+      isQuestionAnswered : false,   // State for the current question of quiz if a user has made a selection.
+      selectedAnswer: null,         // Holds the value of the selected radio button.
+      quizEnded : false,            // True if the quiz is complete.
     };
   },
   methods: {
-    
+    nextQuestion() {
+      this.questionIndex++;          // Increment the index to move to the next question.
+      this.selectedAnswer = null;         // Reset the value held so that the next question is not answered.
+    }
   }
 };
 </script>
