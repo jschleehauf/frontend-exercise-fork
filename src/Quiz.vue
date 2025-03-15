@@ -1,5 +1,8 @@
 <template>
-  <h1>{{  this.questions[1].text }}</h1>
+  <div>
+    <h1>{{  questions[question].text }}</h1>
+    <button @click="question++">Next</button> 
+  </div>
 </template>
 
 <script>
@@ -11,7 +14,12 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      question : 0
+    };
+  },
+  methods: {
+    
   }
 };
 </script>
