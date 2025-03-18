@@ -9,7 +9,7 @@
           {{ option }}
         </label>
       </div>
-      <button @click="nextQuestion" :disabled="selectedAnswer === null">Next</button>
+      <button id="next" @click="nextQuestion" :disabled="selectedAnswer === null">Next</button>
     </div>
     <!-- If the quiz has ended display all questions and corresponding answers -->
     <div class="card" v-if="quizEnded">
@@ -36,7 +36,6 @@ export default {
   data() {
     return {
       questionIndex : 0,            // Position in questions list.
-      isQuestionAnswered : false,   // State for the current question of quiz if a user has made a selection.
       selectedAnswer: null,         // Holds the value of the selected radio button.
       userResponses: [],            // Holds user response for each question.
       quizEnded : false,            // True if the quiz is complete.
@@ -58,6 +57,7 @@ export default {
       } else {                          // Reached end of questions
         this.quizEnded = true;
         this.questionIndex = 0;
+        this.selectedAnswer = null;
       }
     },
     getSelectedAnswer(index) {
@@ -90,5 +90,8 @@ export default {
     font-size: 20px;
     margin-top: 4px;
 
+  }
+  #next {
+    margin-top: 10px;
   }
 </style>
